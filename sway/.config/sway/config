@@ -1,0 +1,242 @@
+### Variables
+
+# Gruvbox-Dark Pallete
+set $no_color #00000000
+set $black_color #000000
+set $red_color #cc241d
+set $red2_color #fb4934
+set $green_color #98971a
+set $green2_color #d8bb26
+set $yellow_color #d79921
+set $yellow2_color #fabd2f
+set $blue_color #458588
+set $blue2_color #83a598
+set $purple_color #b16286
+set $purple2_color #d3869b
+set $aqua_color #689d6a
+set $aqua2_color #8ec07c
+set $gray_color #a89984
+set $gray2_color #928374
+set $orange_color #d65d0e
+set $orange2_color #928374
+
+set $bg0_color #282828
+set $bg1_color #3c3836
+set $bg2_color #504945
+set $bg3_color #665c54
+set $bg4_color #7c6f64
+set $bg0_h_color #1d2021
+
+set $bg_color $bg0_color
+set $fg_color #ebdbb2
+
+# Default fonts
+set $mono_font "Inconsolata"
+set $sans_font "Inconsolata"
+
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+
+# Home row direction keys, like vim
+set $left Left
+set $down Down
+set $up Up
+set $right Right
+
+# Sizing
+set $gap_size 8
+set $border_size 3
+set $font_size 12
+
+# Terminal emulator
+set $term urxvt 
+
+#Lock screen
+set $lock_cmd bash ~/bin/lock-screen.sh $(xdg-user-dir PICTURES)/locked.png
+
+# Application launcher
+set $menu rofi -show drun
+
+## Basics:
+# start a terminal
+bindsym $mod+Return exec $term
+
+# kill focused window
+bindsym $mod+q kill
+
+# start your launcher
+bindsym $mod+d exec $menu
+
+# capture all screens to file
+bindsym Print exec grim $(xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_grim.png')
+
+# capture the specified screen area to file
+bindsym Alt+Print exec grim -g "$(slurp)" $(xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_grim-slurp.png')
+
+# capture the focused monitor to file
+bindsym Control+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') $(xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_grim.png')
+
+# capture all screens to clipboard
+bindsym Shift+Print exec grim - | wl-copy
+
+# capture the specified screen area to clipboard
+bindsym Shift+Alt+Print exec grim -g "$(slurp)" - | wl-copy
+
+# capture the focused monitor to clipboard
+bindsym Shift+Control+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') - | wl-copy
+
+# Resize them with right mouse button + $mod.
+# Despite the name, also works for non-floating windows.
+# Change normal to inverse to use left mouse button for resizing and right
+# mouse button for dragging.
+floating_modifier $mod normal
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+bindsym $mod+l exec $lock_cmd
+
+# exit sway (logs you out of your wayland session)
+bindsym $mod+Shift+e exit
+
+## Moving around:
+# Move your focus around
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+bindsym $mod+$left focus left
+
+# Move the focused window
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$right move right
+bindsym $mod+Shift+$left move left
+
+## Workspaces:
+# switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+# Note: workspaces can have any name you want, not just numbers.
+# We just use 1-10 as the default.
+
+bindsym $mod+Tab workspace next
+bindsym $mod+Shift+Tab workspace prev
+
+## Layout stuff:
+# You can "split" the current object of your focus with
+# $mod+b or $mod+v, for horizontal and vertical splits
+# respectively.
+bindsym $mod+b splith
+bindsym $mod+v splitv
+
+# Switch the current container between different layout styles
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Make the current focus fullscreen
+bindsym $mod+f fullscreen
+
+# Toggle the current focus between tiling and floating mode
+bindsym $mod+Shift+space floating toggle
+
+# Swap focus between the tiling area and the floating area
+bindsym $mod+space focus mode_toggle
+
+# move focus to the parent container
+bindsym $mod+a focus parent
+
+## Scratchpad:
+# Sway has a "scratchpad", which is a bag of holding for windows.
+# You can send windows there and get them back later.
+
+# Move the currently focused window to the scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym $mod+minus scratchpad show
+
+# Resizing containers:
+mode "resize" {
+  # left will shrink the containers width
+  bindsym $left resize shrink width 10 px or 10 ppt
+
+  # right will grow the containers width
+  bindsym $right resize grow width 10 px or 10 ppt
+
+  # up will shrink the containers height
+  bindsym $up resize shrink height 10 px or 10 ppt
+
+  # down will grow the containers height
+  bindsym $down resize grow height 10 px or 10 ppt
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+include /etc/sway/config.d/*
+
+font $mono_font $font_size
+
+gaps inner $gap_size
+
+default_border pixel $border_size
+
+client.focused $blue_color $blue_color $bg_color $blue_color $blue_color
+client.focused_inactive $bg_color $bg_color $blue_color $bg_color $bg_color
+client.unfocused $bg_color $bg_color $blue_color $bg_color $bg_color
+client.urgent $red_color $red_color $bg_color $red_color $red_color
+
+bar {
+  swaybar_command waybar
+  gaps $gap_size
+
+  colors {
+    statusline $no_color
+    background $black_color70
+    focused_workspace $blue2_color $bg_color $blue2_color
+    active_workspace $bg_color $bg_color $blue2_color
+    inactive_workspace $bg_color $bg_color $fg_color
+  }
+}
+
+input * {
+  tap enabled
+  natural_scroll disabled
+  xkb_options caps:escape,compose:ralt
+  xkb_numlock enabled
+}
+
+# lock screen after a period of inactivity
+exec swayidle -w \
+    timeout 60 'swaymsg "output * dpms off"' \
+        resume 'swaymsg "output * dpms on"' \
+    timeout 300 $lock_cmd \
+    before-sleep $lock_cmd
+
+# notification service
+exec mako
+
+exec xrdb -load ~/.Xresources
