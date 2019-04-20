@@ -1,0 +1,152 @@
+/*
+red_color #cc241d
+red2_color #fb4934
+green_color #98971a
+green2_color #d8bb26
+yellow_color #d79921
+yellow2_color #fabd2f
+blue_color #458588
+blue2_color #83a598
+purple_color #b16286
+purple2_color #d3869b
+aqua_color #689d6a
+aqua2_color #8ec07c
+gray_color #a89984
+gray2_color #928374
+orange_color #d65d0e
+orange2_color #fe8019
+bg0_color #282828
+bg1_color #3c3836
+bg2_color #504945
+bg3_color #665c54
+bg4_color #7c6f64
+bg0_h_color #1d2021
+fg_color #ebdbb2
+*/
+
+* {
+    border: 0;
+    border-radius: 0;
+    padding: 0 0;
+    font-family: Hack, Roboto, Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    min-height: 0;
+    margin-right: 2px;
+    margin-bottom: 2px;
+    margin-left: 2px;
+}
+
+window#waybar {
+    color: #ebdbb2;
+    background: transparent;
+}
+
+#workspaces button {
+    border: 3px;
+    border-style: solid;
+    color: #1d2021;
+    background: transparent;
+}
+
+#workspaces button.focused {
+    color: #ebdbb2;
+    border-color: #458588;
+    font-weight: bold;
+}
+
+#mode {
+    color: #282828;
+    background: #fabd2f;
+}
+
+#clock, #battery, #cpu, #memory, #temperature, #backlight, #network, #pulseaudio, #mode, #idle_inhibitor {
+    border: 3px;
+    border-style: solid;
+    padding: 0 15px;
+}
+
+#clock {
+    font-weight: bold;
+    border-style: hidden;
+    background: transparent;
+}
+
+#backlight {
+    border-color: #3c3836;
+    background-color: #282828;
+}
+
+#battery {
+    color: #282828;
+    background-color: #ebdbb2;
+}
+
+#battery.charging {
+    color: #1d2021;
+    border-color: #98971a;
+    background-color: #d8bb26;
+}
+
+@keyframes blink {
+    to {
+        color: #3c3836;
+        background-color: #ebdbb2;
+    }
+}
+
+#battery.critical:not(.charging) {
+    background: #f53c3c;
+    color: #ebdbb2;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#cpu {
+    border-color: #8ec07c;
+    color: #3c3836;
+    background: #689d6a;
+}
+
+#memory {
+    border-color: #d3869b;
+    background: #b16286;
+}
+
+#network {
+    border-color: #83a598;
+    background: #458588;
+}
+
+#network.disconnected {
+    background: #f53c3c;
+}
+
+#pulseaudio {
+    border-color: #fabd2f;
+    color: #3c3836;
+    background: #d79921;
+}
+
+#pulseaudio.muted {
+    border-color: #8ec07c;
+    color: #1d2021;
+    background: #689d6a;
+}
+
+#temperature {
+    border-color: #a89984;
+    background: #928374;
+}
+
+#temperature.critical {
+    border-color: #d65d0e;
+    background: #fe8019;
+}
+
+#tray {
+    border-style: hidden;
+    background-color: transparent;
+}
