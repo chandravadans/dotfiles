@@ -1,4 +1,6 @@
-URxvt.font: xft:Inconsolata:pixelsize=14:minspace=False,xft:DejaVu Sans:pixelsize=12
+Xft.dpi: 150
+
+URxvt.font: xft:Inconsolata:size=12:minspace=False,xft:DejaVu Sans:size=10
 
 URxvt.letterSpace: -1
 
@@ -102,7 +104,7 @@ URxvt.internalBorder: 10
 
 !! Extensions
 !URxvt.perl-ext-common: default,clipboard,url-select,keyboard-select,tabbed,fullscreen,resize-font,selection-to-clipboard
-URxvt.perl-ext-common: default,clipboard,url-select,keyboard-select,fullscreen,resize-font,selection-to-clipboard
+URxvt.perl-ext-common: default,clipboard,url-select,keyboard-select,fullscreen,resize-font,selection-to-clipboard,config-reload
 URxvt.url-select.underline: true
 URxvt.keysym.M-u:           perl:url-select:select_next
 URxvt.keysym.M-Escape:      perl:keyboard-select:activate

@@ -155,7 +155,6 @@ bar {
 													sensors \
 													memory \
 													load \
-													xrandr \
 													battery \
     											time \
   										--parameters \
@@ -201,10 +200,13 @@ exec --no-startup-id "nitrogen --restore"
 exec --no-startup-id "dunst"
 
 # Enable touchpad tapping
-exec --no-startup-id "xinput set-prop 11 287 1"
+exec --no-startup-id "xinput set-prop 15 282 1"
+
+# Adjust cursor speed
+exec --no-startup-id "xinput set-prop 15 302 1"
 
 # Load xresources
-exec --no-startup-id "xrdb -merge $HOME/.Xresources"
+exec  "xrdb -load $HOME/.Xresources"
 
 #Idle management
 exec_always --no-startup-id xidlehook \
