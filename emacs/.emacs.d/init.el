@@ -24,6 +24,12 @@
 ;;; Hide toolbar
 (tool-bar-mode 0)
 
+;;; Autosave files in /tmp
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+
 ;;; Shortcuts to change font size
 (defun inc-font ()
   (interactive)
