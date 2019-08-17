@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH="$HOME/.oh-my-zsh"
+  export ZSH="/home/csubraveti/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -66,6 +66,10 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
+export PATH=$HOME/bin:$HOME/.jenv/bin:/opt/atlassian-plugin-sdk/bin:$PATH
+#export PATH=$HOME/bin:/opt/atlassian-plugin-sdk/bin:$PATH
+export EDITOR=vim
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -95,18 +99,20 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias mirr_ref="sudo reflector --verbose --country Australia --protocol https --sort rate --save /etc/pacman.d/mirrorlist"
-
-alias bbdir="cd $HOME/atlassian/bitbucket/stash"
-alias bbs_nuke_mirror_home="rm -rvf analytics-logs bin caches export home.properties lib log plugins shared/config shared/data shared/plugins tmp && mv shared/bitbucket.properties.bak shared/bitbucket.properties" 
-
-alias vpn_fix="resolvectl domain tun0 '~.'"
-
-ATLAS_SDK=/opt/atlassian-plugin-sdk
-PATH=$HOME/bin:$ATLAS_SDK/bin:$PATH
+#eval "$(jenv init -)" #Loads jenv
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+STASH="$HOME/atlassian/bitbucket/bitbucket-server/"
+alias bbs_es="docker run -it --rm -p 9200:9200 -p 7992:9300 -e "discovery.type=single-node" -e "xpack.security.enabled=false" docker.elastic.co/elasticsearch/elasticsearch:5.5.3"
+alias bbdir="cd $STASH"
+alias bbs_nuke_mirror_home="rm -rvf analytics-logs bin caches export lib log plugins tmp home.properties shared/config shared/data shared/plugins && mv shared/bitbucket.properties.bak shared/bitbucket.properties"
+alias mii="mvn install -Dskip.unit.tests=true -Dincrementalbuild.enabled=true -T 1C"
+alias mci="mvn clean install -Dskip.unit.tests=true -T 1C"
+alias work_vpn="sudo openconnect vpn.atlassian.com -u csubraveti"
+alias rand_sentence="shuf -n $[$RANDOM % 10] /usr/share/dict/words | tr '\n' ' '"
+alias mate_dpi="gsettings set org.mate.font-rendering dpi"
 
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
         source /etc/profile.d/vte.sh
@@ -115,3 +121,25 @@ fi
 export GPG_TTY="$(tty)"
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpgconf --launch gpg-agent
+
+function git_add_commit {
+	if [[ -f $1 ]]; then
+		echo "$(date): $(rand_sentence)" >> $1
+	else
+		echo "$(date): Making file $1" > $1
+	fi
+	git add $1
+	git commit -m "Commit $1"
+}
+
+function git_create_branches {
+	root=$(git symbolic-ref --short HEAD)
+	echo "Root branch: $root"
+	for i ({0..$1})
+	do
+		git checkout -b branch-$i
+		echo "Created branch-$i"
+		git_add_commit file-$i > /dev/null
+		git checkout $root
+	done
+}
