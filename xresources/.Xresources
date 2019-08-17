@@ -1,8 +1,8 @@
-Xft.dpi: 150
+!Xft.dpi: 96
 
-URxvt.font: xft:Inconsolata:size=12:minspace=False,xft:DejaVu Sans:size=10
+!URxvt.font: xft:Inconsolata:size=12:minspace=False,xft:DejaVu Sans:size=10
 
-URxvt.letterSpace: -1
+!URxvt.letterSpace: -1
 
 URxvt*colorBD:            #ffffff
 URxvt*cursorColor:        #ff8939
