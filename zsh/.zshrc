@@ -97,14 +97,6 @@ source $ZSH/oh-my-zsh.sh
 
 alias mirr_ref="sudo reflector --verbose --country Australia --protocol https --sort rate --save /etc/pacman.d/mirrorlist"
 
-alias bbdir="cd $HOME/atlassian/bitbucket/stash"
-alias bbs_nuke_mirror_home="rm -rvf analytics-logs bin caches export home.properties lib log plugins shared/config shared/data shared/plugins tmp && mv shared/bitbucket.properties.bak shared/bitbucket.properties" 
-
-alias vpn_fix="resolvectl domain tun0 '~.'"
-
-ATLAS_SDK=/opt/atlassian-plugin-sdk
-PATH=$HOME/bin:$ATLAS_SDK/bin:$PATH
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
