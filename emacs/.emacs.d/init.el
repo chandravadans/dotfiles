@@ -1,11 +1,13 @@
 ;;; Package management
 (require 'package)
-(setq package-archives '(("tromey" . "http://tromey.com/elpa/" t)
-			 ("melpa" . "http://melpa.milkbox.net/packages/" t)
-			 ("melpa-stable" . "http://stable.melpa.org/packages/" t)))
 
-(add-to-list 'package-pinned-packages '(cider . "melpa-stable" t))
-(add-to-list 'package-pinned-packages '(magit . "melpa-stable" t))
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+			 ("tromey" . "http://tromey.com/elpa/")
+			 ("melpa" . "http://melpa.milkbox.net/packages/")
+			 ("melpa-stable" . "http://stable.melpa.org/packages/")))
+
+(add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
+(add-to-list 'package-pinned-packages '(magit . "melpa-stable") t)
 
 (package-initialize)
 
@@ -54,7 +56,7 @@
 (add-to-list 'load-path "~/.emacs.d/vendor")
 
 ;;; Customization
-(add-to-list 'load-path "~/.emacs/d/customizations")
+(add-to-list 'load-path "~/.emacs.d/customizations")
 
 ;;; Load correct environment variables
 (load "shell-integration.el")
@@ -86,11 +88,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (restclient magit))))
+)
   
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; 
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#1b1918" :foreground "#a8a19f" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 108 :width normal :foundry "1ASC" :family "Ubuntu Mono")))))
+ )
