@@ -24,11 +24,8 @@
 		      ;; integration with clojure repl
 		      cider
 
-		      ;; allow ido usage in as many contexts as possible
-		      ido-completing-read+
-
-		      ;; M-x enhancement
-		      smex
+                      ;; incremental autocomplete
+                      helm
 
 		      ;; project navigation
 		      projectile
@@ -64,6 +61,9 @@
 ;;; Easier to navigate files
 (load "navigation.el")
 
+;;; Use helm
+(load "helm-settings.el")
+
 ;;; UI Tweaks
 (load "ui.el")
 
@@ -79,6 +79,10 @@
 ;;; Language-specific
 (load "setup-clojure.el")
 (load "setup-js.el")
+
+
+;; Add to path
+(add-to-list 'exec-path "~/bin")
 
 ;;; Increase garbage collection threshold to 20M
 (setq gs-cons-threshold 2000000)
