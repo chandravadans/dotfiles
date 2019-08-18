@@ -1,4 +1,4 @@
-;; These customizations change the way emacs looks and disable/enable
+
 ;; some user interface elements. Some useful customizations are
 ;; commented out, and begin with the line "CUSTOMIZE". These are more
 ;; a matter of preference and may require some fiddling to match your
@@ -10,8 +10,7 @@
 ;; Show line numbers
 (global-linum-mode)
 
-;; You can uncomment this to remove the graphical toolbar at the top. After
-;; awhile, you won't need the toolbar.
+;; Remove the graphical toolbar at the top.
  (when (fboundp 'tool-bar-mode)
    (tool-bar-mode -1))
 
@@ -49,11 +48,6 @@
 
 ;; Show current time
 (display-time-mode t)
-
-;; Uncomment the lines below by removing semicolons and play with the
-;; values in order to set the width (in characters wide) and height
-;; (in lines high) Emacs will have whenever you start it
-;; (setq initial-frame-alist '((top . 0) (left . 0) (width . 177) (height . 53)))
 
 ;; These settings relate to how emacs interacts with your operating system
 (setq ;; makes killing/yanking interact with the clipboard

@@ -58,3 +58,11 @@
 
 ;; projectile everywhere!
 (projectile-global-mode)
+
+;;; Windmove - switch windows using Shift + arrow keys
+(when (fboundp 'windmove-default-keybindings)
+  (windmove-default-keybindings))
+
+;;; Winner mode - go back to previous window configuration after C-x 1. Use C-c left, C-c right
+(when (fboundp 'winner-mode)
+  (winner-mode 1))
