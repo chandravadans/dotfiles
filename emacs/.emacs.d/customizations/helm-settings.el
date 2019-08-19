@@ -1,5 +1,13 @@
 (require 'helm)
 (require 'helm-config)
+(require 'helm-eshell)
+
+(add-hook 'eshell-mode-hook
+          #'(lambda ()
+              (define-key eshell-mode-map (kbd "M-l")  'helm-eshell-history)))
+
+;; for shell-mode
+(define-key shell-mode-map (kbd "C-c C-l") 'helm-comint-input-ring)
 
 ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
 ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
