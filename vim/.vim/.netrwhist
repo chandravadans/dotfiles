@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/home/csubraveti/atlassian/bitbucket/stash-bamboo-plan-templates/.idea/runConfigurations'
+let g:netrw_dirhist_2='/home/csubraveti/atlassian/bitbucket/bitbucket-server/func-test/pact/target/pacts'
+let g:netrw_dirhist_3='/home/csubraveti/elk/stack-docker/config'
+let g:netrw_dirhist_4='/home/csubraveti/.config/i3'
+let g:netrw_dirhist_5='/home/csubraveti/.vim'
