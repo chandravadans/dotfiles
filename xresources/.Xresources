@@ -1,14 +1,16 @@
-Xft.antialias: true
-Xft.hinting: true
-Xft.rgba: rgb
-Xft.autohint: false
-Xft.hintstyle: hintslight
-Xft.lcdfilter: lcddefault
+!Xft.antialias: true
+!Xft.hinting: true
+!Xft.rgba: rgb
+!Xft.autohint: false
+!Xft.hintstyle: hintslight
+!Xft.lcdfilter: lcddefault
+!Xft.dpi:96
 
+XTerm*faceName: Noto Sans Mono
+XTerm*faceSize: 12
+URxvt.font: xft:Noto Sans Mono:pixelsize=14,xft:DejaVu Sans:pixelsize=12
 
-URxvt.font: xft:Inconsolata:pixelsize=14:minspace=False,xft:DejaVu Sans:pixelsize=12
-
-URxvt.letterSpace: -1
+!URxvt.letterSpace: -1
 
 URxvt*colorBD:            #ffffff
 URxvt*cursorColor:        #ff8939
@@ -110,7 +112,7 @@ URxvt.internalBorder: 10
 
 !! Extensions
 !URxvt.perl-ext-common: default,clipboard,url-select,keyboard-select,tabbed,fullscreen,resize-font,selection-to-clipboard
-URxvt.perl-ext-common: default,clipboard,url-select,keyboard-select,fullscreen,resize-font,selection-to-clipboard
+URxvt.perl-ext-common: default,clipboard,url-select,keyboard-select,tabbed,fullscreen,resize-font,selection-to-clipboard
 URxvt.url-select.underline: true
 URxvt.keysym.M-u:           perl:url-select:select_next
 URxvt.keysym.M-Escape:      perl:keyboard-select:activate
