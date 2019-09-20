@@ -151,3 +151,7 @@ export VISUAL=nvim
 # Use nvim!
 alias vim=nvim
 alias vi=nvim
+
+if [[ -f "${HOME}/.config/cloudtoken/bashrc_additions" ]]; then
+    source "${HOME}/.config/cloudtoken/bashrc_additions"
+fi
