@@ -62,7 +62,7 @@ ZSH_THEME="aussiegeek"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git autojump fzf)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -139,6 +139,7 @@ alias mci="mvn clean install -Dskip.unit.tests=true -T 1C"
 alias work_vpn="sudo openconnect vpn.atlassian.com -u csubraveti"
 alias rand_sentence="shuf -n $[$RANDOM % 10] /usr/share/dict/words | tr '\n' ' '"
 alias mate_dpi="gsettings set org.mate.font-rendering dpi"
+alias pshow="find ~/.password-store -type f | fzf | cut -f 5- -d /|sed 's/ /\\ /g'|sed 's/.gpg//g'| xargs -r pass show"
 
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
         source /etc/profile.d/vte.sh
@@ -181,3 +182,6 @@ alias vi=nvim
 if [[ -f "${HOME}/.config/cloudtoken/bashrc_additions" ]]; then
     source "${HOME}/.config/cloudtoken/bashrc_additions"
 fi
+
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
