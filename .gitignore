@@ -1,4 +1,5 @@
 emacs/.emacs.d/transient
+vim/.vim/.netrwhist
 eshell
 .smex-items
 *~$
