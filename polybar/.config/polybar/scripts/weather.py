@@ -15,7 +15,7 @@
 
 import requests
 
-CITY = "2803138"
+CITY = "2147714"
 API_KEY = "756edce7e9d4c385ef9499a53492678c"
 UNITS = "Metric"
 UNIT_KEY = "C"
@@ -32,6 +32,6 @@ try:
         TEMP = int(float(REQ.json()["main"]["temp"]))
         print("{}, {} °{}".format(CURRENT, TEMP, UNIT_KEY))
     else:
-        print("Error: BAD HTTP STATUS CODE " + str(REQ.status_code))
+        print("Error")
 except (ValueError, IOError):
-    print("Error: Unable print the data")
+    print("Error")
