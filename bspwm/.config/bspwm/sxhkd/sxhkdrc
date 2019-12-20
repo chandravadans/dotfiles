@@ -194,12 +194,24 @@ super + q
 #################################################################
 
 #Focus selected desktop
-super + Tab
-	bspc desktop -f '^{1-9,10}'
+#super + Tab
+#	bspc desktop -f '^{1-9,10}'
 
-# go (Shift=move) to desktop 
-super + {_,shift + }{1-9,0}
-    bspc {desktop -f,window -d} ^{1-9,10}
+# focus the last node/desktop
+super + {grave,Tab}
+	bspc {node,desktop} -f last
+
+# focus the next/previous desktop in the current monitor
+super + {Left,Right}
+	bspc desktop -f {prev,next}.local
+
+# go to desktop 
+super + {1-9,0}
+    bspc desktop -f ^{1-9,10}
+
+# move to desktop
+super + shift + {1-9,0}
+    bspc node -d '^{1-9,10}' --follow
 
 # Increase/decrease window gap on focused desktop
 super + bracket{left,right}
