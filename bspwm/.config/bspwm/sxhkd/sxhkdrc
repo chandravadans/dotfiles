@@ -61,9 +61,9 @@ super + shift + s
 # CONTROL + ALT KEYS
 #################################################################
 
-#Slimlock
+#Lock
 super + l
-    slimlock
+    xscreensaver-command -lock
 
 #Xfce4-settings-manager
 ctrl + alt + m
@@ -95,7 +95,7 @@ Print
 
 #screeenshooter
 ctrl + Print
-    flameshot 
+    flameshot gui
 
 #Gnome-Screenshot
 ctrl + shift + Print
@@ -208,10 +208,14 @@ super + {Left,Right}
 # go to desktop 
 super + {1-9,0}
     bspc desktop -f ^{1-9,10}
+super + m
+    bspc desktop -f 11
 
 # move to desktop
 super + shift + {1-9,0}
     bspc node -d '^{1-9,10}' --follow
+super + shift + m
+    bspc node -d 11
 
 # Increase/decrease window gap on focused desktop
 super + bracket{left,right}

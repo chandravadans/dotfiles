@@ -7,17 +7,25 @@ function run {
   fi
 }
 
-#Find out your monitor name with xrandr or arandr (save and you get this line)
-#xrandr --output VGA-1 --primary --mode 1360x768 --pos 0x0 --rotate normal
-#xrandr --output DP2 --primary --mode 1920x1080 --rate 60.00 --output LVDS1 --off &
-#xrandr --output LVDS1 --mode 1366x768 --output DP3 --mode 1920x1080 --right-of LVDS1
-#xrandr --output HDMI2 --mode 1920x1080 --pos 1920x0 --rotate normal --output HDMI1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output VIRTUAL1 --off
-xrandr --output eDP1 --mode 1920x1080 --pos 0x0 --rotate normal
+function num_monitors {
+				xrandr | grep -w "connected" | wc -l
+}
+
+function name_monitors {
+				xrandr | grep -w "connected" | cut -f1 -d' '
+}
+
+monitors=$(num_monitors)
+notify-send "$monitors monitor(s) connected"
+if [ $monitors -eq 1 ]; then
+				xrandr --auto --output eDP1 --primary --mode 1920x1080 --output DP3 --off
+elif [ $monitors -eq 2 ]; then
+				xrandr --auto --output DP3 --primary --mode 1920x1080 --pos 0x0 --output eDP1 --mode 1920x1080 --right-of DP3
+else
+				echo "More than 2 monitors connected"
+fi;
 
 $HOME/.config/polybar/launch.sh &
-
-#change your keyboard if you need it
-#setxkbmap -layout be
 
 feh --bg-scale ~/.config/bspwm/wall.png &
 
@@ -28,8 +36,10 @@ conky -c $HOME/.config/bspwm/system-overview &
 run nm-applet &
 run xfce4-power-manager &
 run libinput-gestures-setup start &
+run xscreensaver &
 blueberry-tray &
 picom --config $HOME/.config/bspwm/picom.conf &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 /usr/lib/xfce4/notifyd/xfce4-notifyd &
+
 notify-send "Desktop's ready" &
