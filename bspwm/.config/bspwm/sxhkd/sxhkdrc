@@ -12,10 +12,10 @@ super + e
 
 #Browser
 super + w
-    firefox -P csubraveti-work
+    firefox -P csubraveti-work --class=ff_work
 
-super + h
-		firefox -P csubraveti-home		
+super + W
+		firefox -P csubraveti-home --class=ff_home
 
 #Conky-toggle
 super + c
@@ -160,12 +160,6 @@ super + y
     polybar-msg cmd toggle
 
 #################################################################
-#################################################################
-##################   DESKTOP SPECIFIC    ########################
-#################################################################
-#################################################################
-
-#################################################################
 # CTRL + ALT KEYS
 #################################################################
 
@@ -189,14 +183,6 @@ super + p
 super + q
 	bspc node -c
 
-#################################################################
-# SUPER KEYS
-#################################################################
-
-#Focus selected desktop
-#super + Tab
-#	bspc desktop -f '^{1-9,10}'
-
 # focus the last node/desktop
 super + {grave,Tab}
 	bspc {node,desktop} -f last
@@ -208,14 +194,14 @@ super + {Left,Right}
 # go to desktop 
 super + {1-9,0}
     bspc desktop -f ^{1-9,10}
-super + m
-    bspc desktop -f 11
+super + {F11,F12}
+    bspc desktop -f ^{11,12}
 
 # move to desktop
 super + shift + {1-9,0}
     bspc node -d '^{1-9,10}' --follow
-super + shift + m
-    bspc node -d 11
+super + shift + {F11,F12}
+    bspc node -d '^{11,12}'
 
 # Increase/decrease window gap on focused desktop
 super + bracket{left,right}
@@ -224,10 +210,6 @@ super + bracket{left,right}
 # set the window state
 super + space
 	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
-
-# Move focus to other monitor
-super + BackSpace
-		bspc monitor -f next
 
 #################################################################
 # SUPER + ALT KEYS
@@ -314,17 +296,9 @@ super + ctrl + {_,shift +}{1-9}
 # ALT KEYS
 #################################################################
 
-#Focus selected desktop
-alt + Tab
-	bspc desktop -f '^{1-9,10}'
-
-#Focus selected desktop
-alt + shift + Tab
-	bspc desktop -f '^{1-9,10}'
-
 #Rotate desktop
-#alt + space
-#	bspc node @/ --rotate {90,-90}
+alt + space
+	bspc node @/ --rotate {90,-90}
 
 #################################################################
 # ALT + SHIFT KEYS

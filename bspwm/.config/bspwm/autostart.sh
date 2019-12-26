@@ -18,9 +18,9 @@ function name_monitors {
 monitors=$(num_monitors)
 notify-send "$monitors monitor(s) connected"
 if [ $monitors -eq 1 ]; then
-				xrandr --auto --output eDP1 --primary --mode 1920x1080 --output DP3 --off
+				xrandr --auto --output eDP1 --mode 1920x1080 --output DP3 --off
 elif [ $monitors -eq 2 ]; then
-				xrandr --auto --output DP3 --primary --mode 1920x1080 --pos 0x0 --output eDP1 --mode 1920x1080 --right-of DP3
+				xrandr --auto --output DP3 --mode 1920x1080 --pos 0x0 --output eDP1 --mode 1920x1080 --right-of DP3
 else
 				echo "More than 2 monitors connected"
 fi;
@@ -34,7 +34,8 @@ run sxhkd -c ~/.config/bspwm/sxhkd/sxhkdrc &
 
 conky -c $HOME/.config/bspwm/system-overview &
 run nm-applet &
-run xfce4-power-manager &
+#run xfce4-power-manager &
+run powerkit &
 run libinput-gestures-setup start &
 run xscreensaver &
 blueberry-tray &

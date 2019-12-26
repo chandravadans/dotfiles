@@ -2,17 +2,134 @@
 
 #LAUNCHERS
 $HOME/.config/bspwm/autostart.sh
-#fix for moving spotify to specific workspace
-#bspc config external_rules_command ~/.config/bspwm/scripts/external_rules_command
 
-function num_monitors() {
+#MONITORS
+LAPTOP=eDP1
+DESK=DP3
+WORK1=DP1-1
+WORK2=DP1-2
+
+function last_state() {
+				if [ -f /tmp/numdisplays ]; then
+								cat /tmp/numdisplays
+				else
+								echo "1"
+				fi
+}
+
+function current_state() {
 				xrandr | grep -w "connected" | wc -l
 }
 
-function name_monitors() {
-				xrandr | grep -w "connected" | cut -f1 -d' '
+function dump_all_nodes_to_laptop() {
+				i=0;
+				for n in $(bspc query --nodes); do
+								bspc node $n --to-desktop $LAPTOP:^$(echo "$i/4" | bc)
+								i=$(echo "$i+1" | bc)
+				done;
 }
 
+prev=$(last_state)
+current=$(current_state)
+echo $current > /tmp/numdisplays
+case $prev in
+			1) 
+								case $current in 
+												1)			
+																bspc monitor $LAPTOP --reset-desktops 1 2 3 4 5 6 7 8 9 10 11
+																;;
+												2)
+																bspc monitor $DESK --reset-desktops 11 12 13 14 15 16 17 18 19 20 21
+																for i in {1..11}; do
+																				bspc desktop $LAPTOP:^$i --swap $DESK:^$i
+																				bspc desktop $DESK:^$i --rename $i
+																done
+																bspc monitor $LAPTOP --reset-desktops 12
+																;;
+												3)
+																bspc monitor $WORK1 --reset-desktops 11 12 13 14 15 16
+																bspc monitor $WORK2 --reset-desktops 17 18 19 20 21
+																for i in {1..5}; do
+																				bspc desktop $LAPTOP:^$i --swap $WORK1:^$i
+																				bspc desktop $WORK1:^$i --rename $i
+																done;
+																for i in {6..11}; do
+																				d=$(echo "$i-5" | bc)
+																				bspc desktop $LAPTOP:^$i --swap $WORK2:^$d
+																				bspc desktop $WORK2:^$d $d
+																done;
+																bspc monitor $LAPTOP --reset-desktops 12
+																;;
+												*)
+																notify-send "Connected $current displays. Whoa!"
+																$(dump_all_nodes_to_laptop)
+																;;
+								esac
+								;;
+				2) 
+								case $current in
+												1)
+																for n in $(bspc query --nodes --desktop $LAPTOP:^1); do
+																				bspc node $n --to-desktop $DESK:^11
+																done
+																bspc desktop $LAPTOP:^1 --remove
+																bspc monitor $LAPTOP --reset-desktops 11 12 13 14 15 16 17 18 19 20 21
+																for i in {1..11}; do
+																				bspc desktop $DESK:^$i --swap $LAPTOP:^$i
+																				bspc desktop $LAPTOP:^$i --rename $i
+																done
+																bspc monitor $DESK --remove
+																;;
+												2)
+																# Nothing to do
+																;;
+												3)
+																notify-send "Switching over from 2 connected displays to 3 not supported"
+																$(dump_all_nodes_to_laptop)
+																;;
+												*)
+																notify-send "Connected $current displays. Whoa!"
+																$(dump_all_nodes_to_laptop)
+																;;
+								esac
+								;;
+				3) 
+								case $current in
+												1)			
+																for n in $(bspc query --nodes --desktop $LAPTOP:^1); do
+																				bspc node $n --to-desktop $WORK2:^6
+																done
+																bspc desktop $LAPTOP:^1 --remove
+																bspc monitor $LAPTOP --reset-desktops 11 12 13 14 15 16 17 18 19 20 21
+																for i in {1..5}; do
+																				bspc desktop $WORK1:^$i --swap $LAPTOP:^$i
+																				bspc desktop $LAPTOP:^$i --rename $i
+																done;
+																for i in {6..11}; do
+																				d=$(echo $i - 5 | bc)
+																				bspc desktop $WORK2:^$d --swap $LAPTOP:^$i
+																				bspc desktop $LAPTOP:^$i $i
+																done;
+																bspc monitor $WORK1 --remove
+																bspc monitor $WORK2 --remove
+																;;
+												2)
+																notify-send "Switching over from 3 connected displays to 2 not supported"
+																$(dump_all_nodes_to_laptop)
+																;;
+												3)
+																# Nothing to do
+																;;
+												*)
+																notify-send "Connected $current displays. Whoa!"
+																$(dump_all_nodes_to_laptop)
+								esac
+								;;
+				*)
+								notify-send "Whoa, connected $prev display(s). How!"
+								$(dump_all_nodes_to_laptop)
+								;;
+esac
 
 #BSPWM configuration
 #bspc config border_radius       8
@@ -46,30 +163,6 @@ bspc config presel_feedback_color	"#5e81ac"
 #bspc config urgent_border_color 	"#dd2727"
 
 
-monitors=$(num_monitors)
-if [ $monitors -eq 1 ]; then
-				#Single monitor, internal
-				bspc monitor DP3 -r
-				bspc monitor eDP1 -d 1 2 3 4 5 6 7 8 9 10 11
-elif [ $monitors -eq 2 ]; then
-				#Two monitors
-				bspc monitor eDP1 -d 11
-				bspc monitor DP3 -d 1 2 3 4 5 6 7 8 9 10
-else
-				echo "More than 2 monitors connected"
-fi
-
-
-#Dual monitor
-#find out names with arandr or xrandr
-#bspc monitor DP-2 -d 1 2 3 4 5 6 7 8 9
-#bspc monitor LVDS1 -d 1 2 3 4
-#bspc monitor DP3 -d  5 6 7 8 9
-#bspc monitor HDMI-0 -d 1 2 3 4 5 6 7 8 9 10
-#bspc monitor HDMI-1 -d 1 2 3 4 5 6 7 8 9 10
-#bspc monitor HDMI1 -d 1 2 3 4 5
-#bspc monitor HDMI2 -d 6 7 8 9 10
-
 #Fullscreen applications
 bspc rule -a inkscape state=fullscreen
 bspc rule -a Spotify state=fullscreen
@@ -100,24 +193,15 @@ bspc rule -a Gnome-disks state=tiled
 bspc rule -a Xfce4-settings-manager state=tiled
 
 #open applications on specific workspaces
-#bspc rule -a Firefox desktop='^1' follow=on
-#bspc rule -a Google-chrome desktop='^1' follow=on
-#bspc rule -a Chromium desktop='^1'  follow=on
-#bspc rule -a Subl3 desktop='^2' follow=on
-#bspc rule -a Atom desktop='^2' follow=on
-#bspc rule -a Steam desktop='^5'
-#bspc rule -a vlc desktop='^6'  follow=on
-#bspc rule -a mpv desktop='^6'  follow=on
-#bspc rule -a Vivaldi-stable desktop='^6' follow=on
-#bspc rule -a Vivaldi-snapshot desktop='^6' follow=on
-#bspc rule -a Transmission-gtk desktop='^7' follow=on
-#bspc rule -a Thunar desktop='^8' follow=on
-#bspc rule -a discord desktop='^9' follow=on
-#bspc rule -a Spotify desktop='^10' follow=on
+bspc rule -a ff_home desktop='^10' follow=on
+bspc rule -a ff_work desktop='^2' follow=on
+bspc rule -a vlc desktop='^8'  follow=on
+bspc rule -a zoom desktop='^7'  follow=on
+bspc rule -a Spotify desktop='^3' follow=on
 
 #Spotify fix  --move desktop 10
 #sleep 1
-#wmctrl -r Spotify -t 10
+#wmctrl -r Spotify -t 3
 #exit
 
 #polybar hidden when fullscreen for vlc, youtube, mpv ...
