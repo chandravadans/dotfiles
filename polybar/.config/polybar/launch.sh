@@ -11,13 +11,13 @@ while pgrep -u $UID -x polybar > /dev/null; do sleep 1; done
 desktop=$(echo $DESKTOP_SESSION)
 count=$(xrandr --query | grep " connected" | cut -d" " -f1 | wc -l)
 
-#if type "xrandr" > /dev/null; then
+if type "xrandr" > /dev/null; then
   for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-    MONITOR=$m polybar --reload mainbar-bspwm -c ~/.config/polybar/config &
+    MONITOR=$m polybar --reload $1 -c ~/.config/polybar/config &
   done
-#else
-#  polybar --reload mainbar-bspwm -c ~/.config/polybar/config &
-#fi
+else
+  polybar --reload mainbar-bspwm -c ~/.config/polybar/config &
+fi
     # second polybar at bottom
     # if type "xrandr" > /dev/null; then
     #   for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
