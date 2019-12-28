@@ -25,21 +25,20 @@ else
 				echo "More than 2 monitors connected"
 fi;
 
-$HOME/.config/polybar/launch.sh &
+$HOME/.config/polybar/launch.sh mainbar-bspwm &
 
 feh --bg-scale ~/.config/bspwm/wall.png &
 
 xsetroot -cursor_name left_ptr &
 run sxhkd -c ~/.config/bspwm/sxhkd/sxhkdrc &
 
-conky -c $HOME/.config/bspwm/system-overview &
+#conky -c $HOME/.config/bspwm/system-overview &
 run nm-applet &
-#run xfce4-power-manager &
 run powerkit &
 run libinput-gestures-setup start &
 run xscreensaver &
 blueberry-tray &
-picom --config $HOME/.config/bspwm/picom.conf &
+picom --config $HOME/.config/picom.conf &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 /usr/lib/xfce4/notifyd/xfce4-notifyd &
 
