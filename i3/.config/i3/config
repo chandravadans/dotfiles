@@ -198,6 +198,16 @@ mode "resize" {
 
 bindsym $mod+F1 mode "resize"
 
+set $mode_power [l]ogoff | [s]hutdown
+mode "$mode_power" {
+        bindsym l exec i3-msg exit
+        bindsym s exec systemctl poweroff
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+bindsym --release XF86PowerOff mode "$mode_power"
+
+
 # Scratchpad
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+Shift+plus scratchpad show
