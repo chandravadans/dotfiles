@@ -2,6 +2,11 @@
 
 # More info : https://github.com/jaagr/polybar/wiki
 
+if [ $# -ne 2 ]; then
+				echo "Usage: launch.sh <bar_name> <tray_display>"
+				exit 1
+fi
+
 # Terminate already running bar instances
 killall -q polybar
 
@@ -13,7 +18,11 @@ count=$(xrandr --query | grep " connected" | cut -d" " -f1 | wc -l)
 
 if type "xrandr" > /dev/null; then
   for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-    MONITOR=$m polybar --reload $1 -c ~/.config/polybar/config &
+		if [ $m = "$2" ]; then			
+						MONITOR=$m TRAY=right polybar --reload $1 -c ~/.config/polybar/config &
+		else
+				    MONITOR=$m TRAY=none polybar --reload $1 -c ~/.config/polybar/config &
+		fi
   done
 else
   polybar --reload mainbar-bspwm -c ~/.config/polybar/config &

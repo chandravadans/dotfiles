@@ -22,11 +22,11 @@ prev=$(last_state)
 current=$(current_state)
 
 if [ $current -eq 1 ]; then
-				xrandr --output $LAPTOP --primary --mode $MODE_1080p
+				xrandr --auto --output $LAPTOP --primary --mode $MODE_1080p
 elif [ $current -eq 2 ]; then
-				xrandr --output $DESK --primary --mode $MODE_1080p --pos 0x0 --output $LAPTOP --mode $MODE_1080p --right-of $DESK
+				xrandr --auto --output $DESK --primary --mode $MODE_1080p --pos 0x0 --output $LAPTOP --mode $MODE_1080p --right-of $DESK
 elif [ $current -eq 3 ]; then
-				xrandr --output $WORK1 --primary --mode $MODE_1080p --pos 0x0 --output $WORK2 --mode $MODE_1080p --right-of $WORK1 --output $LAPTOP --right-of $WORK2 --mode $MODE_1080p
+				xrandr --auto --output $WORK1 --primary --mode $MODE_1080p --pos 0x0 --output $WORK2 --mode $MODE_1080p --right-of $WORK1 --output $LAPTOP --right-of $WORK2 --mode $MODE_1080p
 else 
 				notify-send "$current laptop setup not scripted yet, falling back to laptop setup"
 				xrandr --output $LAPTOP --mode $MODE_1080p

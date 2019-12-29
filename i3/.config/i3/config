@@ -42,9 +42,6 @@ exec --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd
 # Bluetooth control
 exec --no-startup-id blueberry-tray
 
-# Polybar
-exec --no-startup-id "bash $HOME/.config/polybar/launch.sh"
-
 # Calendar
 exec --no-startup-id "killall orage && orage && orage -t"
 
@@ -242,7 +239,7 @@ exec_always --no-startup-id "bash $HOME/.config/i3/setup-displays.sh"
 exec_always --no-startup-id "bash $HOME/.config/i3/compositor.sh"
 
 # Polybar
-exec_always --no-startup-id "bash ~/.config/polybar/launch.sh mainbar-i3"
+exec_always --no-startup-id "bash $HOME/.config/polybar/launch.sh mainbar-i3 $(polybar -m | grep -w primary | cut -f1 -d':')"
 
 # Hide polybar when fullscreen
 exec_always --no-startup-id "xdo below -t $(xdo id -n root) $(xdo id -a polybar-main_eDP-1"
