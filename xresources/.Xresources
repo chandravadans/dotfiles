@@ -1,3 +1,5 @@
+Xcursor.theme: yaru
+Xcursor.size: 16
 Xft.antialias: true
 Xft.hinting: true
 Xft.rgba: rgb
@@ -8,7 +10,7 @@ Xft.lcdfilter: lcddefault
 
 XTerm*faceName: Ubuntu Mono
 XTerm*faceSize: 12
-URxvt.font: xft:Ubuntu Mono:pixelsize=16,xft:Font Awesome:pixelsize=12
+URxvt.font: xft:Ubuntu Mono:pixelsize=16,xft:FontAwesome:pixelsize=14,xft:Joypixels:pixelsize:14
 
 !URxvt.letterSpace: -1
 URxvt.linespace: 2
