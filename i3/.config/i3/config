@@ -66,7 +66,7 @@ bindsym XF86AudioStop exec "playerctl stop"
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec xfce4-terminal
+bindsym $mod+Return exec alacritty
 
 # start a web browser for work
 bindsym $mod+i exec "firefox -P csubraveti-work --class=ff_work"
@@ -249,8 +249,14 @@ assign [class="zoom"] $ws7
 exec_always --no-startup-id "bash $HOME/.config/i3/compositor.sh"
 
 # Polybar
-exec --no-startup-id "bash $HOME/.config/polybar/launch.sh mainbar-i3 $(xrandr | grep -w 'primary' | cut -f1 -d' ')"
+set $bar_cmd "bash $HOME/.config/polybar/launch.sh mainbar-i3 $(xrandr | grep -w 'primary' | cut -f1 -d' ')"
+
+# Screen resolution
+exec_always --no-startup-id "sleep 2 && autorandr -c"
+exec_always --no-startup-id $bar_cmd
+
 bindsym $mod+y exec "polybar-msg cmd toggle"
+bindsym $mod+Shift+b exec $bar_cmd
 
 # Hide polybar when fullscreen
 #exec_always --no-startup-id "xdo below -t $(xdo id -n root) $(xdo id -a polybar-main_eDP-1)"
