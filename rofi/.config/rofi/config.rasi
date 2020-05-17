@@ -7,4 +7,4 @@ configuration {
   lines:      25;
   theme:      "gruvbox-dark-hard";
 }
-@import "/usr/share/rofi/themes/Arc-Dark.rasi"
+@import "/usr/share/rofi/themes/android_notification.rasi"
