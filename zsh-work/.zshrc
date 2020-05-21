@@ -90,6 +90,7 @@ export VISUAL=nvim
 # Use nvim!
 alias vim=nvim
 alias vi=nvim
+alias cclip='xclip -selection clipboard'
 
 if [[ -f "${HOME}/.config/cloudtoken/bashrc_additions" ]]; then
     source "${HOME}/.config/cloudtoken/bashrc_additions"
