@@ -48,6 +48,9 @@ exec --no-startup-id blueberry-tray
 # Calendar
 exec --no-startup-id "orage"
 
+# Clipboard manager
+exec --no-startup-id xfce4-clipman
+
 # Volume and brightness controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@ +5% && pkill -RTMIN+10 i3blocks" 
 bindsym XF86AudioLowerVolume exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@ -5% && pkill -RTMIN+10 i3blocks"
@@ -61,6 +64,9 @@ bindsym XF86AudioPlay exec "playerctl play-pause"
 bindsym XF86AudioNext exec "playerctl next" 
 bindsym XF86AudioPrev exec "playerctl previous"
 bindsym XF86AudioStop exec "playerctl stop"
+
+# Paste from history
+bindsym $mod+Ctrl+Shift+v exec "xfce4-popup-clipman-actions"
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
