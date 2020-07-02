@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/csubraveti/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 ZSH_THEME="aussiegeek"
@@ -46,8 +46,8 @@ STASH="$HOME/atlassian/bitbucket/bitbucket-server/"
 alias bbs_es="docker run -it --rm -p 9200:9200 -p 7992:9300 -e "discovery.type=single-node" -e "xpack.security.enabled=false" docker.elastic.co/elasticsearch/elasticsearch:5.5.3"
 alias bbdir="cd $STASH"
 alias bbs_nuke_mirror_home="rm -rvf analytics-logs bin caches export lib log plugins tmp home.properties shared/config shared/data shared/plugins && mv shared/bitbucket.properties.bak shared/bitbucket.properties"
-alias mii="mvn install -Dskip.unit.tests=true -Dincrementalbuild.enabled=true -T 1C"
-alias mci="mvn clean install -Dskip.unit.tests=true -T 1C"
+alias mii="mvn install -Dskip.unit.tests=true -Dincrementalbuild.enabled=true -T 1C ; notify-send 'BbS built'"
+alias mci="mvn clean install -Dskip.unit.tests=true -T 1C ; notify-send 'BbS built'"
 alias rand_sentence="shuf -n $[$RANDOM % 10] /usr/share/dict/words | tr '\n' ' '"
 alias pshow="find ~/.password-store -type f | fzf | cut -f 5- -d /|sed 's/ /\\ /g'|sed 's/.gpg//g'| xargs -r pass show"
 alias cal="cal --color"
@@ -99,8 +99,6 @@ fi
 # Virtualenv - manage python package versions
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-source /home/csubraveti/.config/broot/launcher/bash/br
-
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/opt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -115,3 +113,4 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
