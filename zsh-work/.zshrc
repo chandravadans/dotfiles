@@ -1,6 +1,3 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -27,7 +24,7 @@ plugins=(git autojump fzf ansible aws)
 
 source $ZSH/oh-my-zsh.sh
 
-export PATH=$HOME/.local/bin:$HOME/bin:$HOME/.jenv/bin:/opt/atlassian-plugin-sdk/bin:$PATH
+export PATH=$HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/bin:$HOME/.jenv/bin:/opt/atlassian-plugin-sdk/bin:$PATH
 export EDITOR=vim
 
 # User configuration
@@ -46,8 +43,9 @@ STASH="$HOME/atlassian/bitbucket/bitbucket-server/"
 alias bbs_es="docker run -it --rm -p 9200:9200 -p 7992:9300 -e "discovery.type=single-node" -e "xpack.security.enabled=false" docker.elastic.co/elasticsearch/elasticsearch:5.5.3"
 alias bbdir="cd $STASH"
 alias bbs_nuke_mirror_home="rm -rvf analytics-logs bin caches export lib log plugins tmp home.properties shared/config shared/data shared/plugins && mv shared/bitbucket.properties.bak shared/bitbucket.properties"
-alias mii="mvn install -Dskip.unit.tests=true -Dincrementalbuild.enabled=true -T 1C ; notify-send 'BbS built'"
-alias mci="mvn clean install -Dskip.unit.tests=true -T 1C ; notify-send 'BbS built'"
+alias bbs_nuke_home="rm -rvf analytics-logs bin caches export log plugins tmp home.properties shared/config shared/data shared/plugins shared/search"
+alias mii="mvn install -DskipTests -Dskip.unit.tests=true -Dincrementalbuild.enabled=true -Dincrementalbuild.metrics.disabled=true -T1.5C ; notify-send 'BbS built'"
+alias mci="mvn clean install -DskipTests -Dskip.unit.tests=true -T1.5C ; notify-send 'BbS built'"
 alias rand_sentence="shuf -n $[$RANDOM % 10] /usr/share/dict/words | tr '\n' ' '"
 alias pshow="find ~/.password-store -type f | fzf | cut -f 5- -d /|sed 's/ /\\ /g'|sed 's/.gpg//g'| xargs -r pass show"
 alias cal="cal --color"
@@ -99,18 +97,5 @@ fi
 # Virtualenv - manage python package versions
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/opt/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/opt/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/opt/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
 
+[ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh

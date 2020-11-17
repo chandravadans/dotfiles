@@ -25,10 +25,10 @@
 [time]
 command=$SCRIPT_DIR/time/time
 STRFTIME_FORMAT=%a, %b %d %H:%M:%S 
-TZONES=$DEFAULT_TZ,Australia/Sydney,Asia/Calcutta,America/Los_Angeles,Canada/Central
-TZ_LABELS=,Sydney,Hyderabad,California,Toronto
+TZONES=$DEFAULT_TZ,Australia/Sydney,Asia/Calcutta,America/Los_Angeles,Canada/Central,UTC
+TZ_LABELS=,Sydney,Hyderabad,California,Toronto,UTC
 align=center
-min_width=1080
+min_width=1200
 separator=false
 interval=1
 
@@ -59,21 +59,21 @@ interval=2
 #
 # If the instance is not specified, use the interface used for default route.
 # The address can be forced to IPv4 or IPv6 with -4 or -6 switches.
-[iface]
+#[iface]
 #IFACE=wlan0
-color=#00FF00
-interval=10
-separator=false
+#color=#00FF00
+#interval=10
+#separator=false
 
-[wifi]
+#[wifi]
 #INTERFACE=wlp3s0
-label=wifi:
-interval=10
-separator=false
+#label=wifi:
+#interval=10
+#separator=false
 
-[bandwidth]
+#[bandwidth]
 #INTERFACE=eth0
-interval=5
+#interval=5
 
 # CPU usage
 #

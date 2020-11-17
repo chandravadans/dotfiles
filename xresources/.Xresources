@@ -1,4 +1,4 @@
-Xcursor.theme: yaru
+Xcursor.theme: Adwaita
 Xcursor.size: 16
 Xft.antialias: true
 Xft.hinting: true
@@ -8,9 +8,9 @@ Xft.hintstyle: hintslight
 Xft.lcdfilter: lcddefault
 !Xft.dpi:96
 
-XTerm*faceName: Ubuntu Mono
+XTerm*faceName: Monospace
 XTerm*faceSize: 12
-URxvt.font: xft:Ubuntu Mono:pixelsize=16,xft:FontAwesome:pixelsize=14,xft:Joypixels:pixelsize:14
+URxvt.font: xft:Monospace:pixelsize=16,xft:FontAwesome:pixelsize=14,xft:Joypixels:pixelsize:14
 
 !URxvt.letterSpace: -1
 URxvt.linespace: 2
