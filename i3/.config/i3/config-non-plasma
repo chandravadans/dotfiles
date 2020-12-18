@@ -249,7 +249,7 @@ bar {
 	status_command SCRIPT_DIR=/usr/lib/i3blocks i3blocks	
 	position top
 	output primary
-	output eDP-1
+	output eDP1
 	tray_output primary
 }
 
@@ -272,4 +272,7 @@ exec_always --no-startup-id "sleep 3 && xfce4-power-manager"
 # Polkit
 exec_always --no-startup-id "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 
-exec --no-startup-id "picom -b --config ~/.config/picom.conf"
+exec --no-startup-id xsetwacom set "Wacom One by Wacom M Pen eraser" rotate half
+exec --no-startup-id xsetwacom set "Wacom One by Wacom M Pen stylus" rotate half
+
+#exec --no-startup-id "picom -b --config ~/.config/picom.conf"
