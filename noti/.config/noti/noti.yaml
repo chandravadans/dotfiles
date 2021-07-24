@@ -1,0 +1,10 @@
+nsuser:
+  soundName: Ping
+  soundNameFail: Basso
+say:
+  voice: Alex
+espeak:
+  voiceName: english-us
+telegram:
+  token: 1736864726:AAFEzEFjwA_YVuemGMnzxgRhMX1w6K26JCM
+  chatId: 1163137945
