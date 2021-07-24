@@ -1,5 +1,6 @@
-#!/bin/bash
-#i3-msg restart
-#bash $HOME/.config/polybar/launch.sh mainbar-i3 $(xrandr | grep -w 'primary' | cut -f1 -d' ')
+#!/usr/bin/env bash
+
+i3-msg restart
+#killall plasmashell && kstart5 plasmashell
 feh --bg-scale $HOME/Pictures/wallpaper.jpg
 notify-send "Configured laptop"

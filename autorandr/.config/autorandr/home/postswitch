@@ -1,12 +1,8 @@
-#!/bin/bash
-DESK=DP1
-LAPTOP=eDP1
-i3-msg workspace 1, move workspace to output $DESK
-i3-msg workspace 2, move workspace to output $DESK
-i3-msg workspace 5, move workspace to output $DESK
-i3-msg workspace 10, move workspace to output $DESK
-i3-msg workspace 3, move workspace to output $LAPTOP
+#!/usr/bin/env bash
 
-feh --bg-scale $HOME/Pictures/wallpaper.jpg
-#bash $HOME/.config/polybar/launch.sh mainbar-i3 $(xrandr | grep -w 'primary' | cut -f1 -d' ')
+
 notify-send "Configured home"
+#killall plasmashell && kstart5 plasmashell
+feh --bg-scale $HOME/Pictures/wallpaper.jpg
+i3-msg restart
+
