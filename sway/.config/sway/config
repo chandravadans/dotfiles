@@ -31,8 +31,8 @@ set $bg_color $bg0_color
 set $fg_color #ebdbb2
 
 # Default fonts
-set $mono_font "Inconsolata"
-set $sans_font "Inconsolata"
+set $mono_font "Ubuntu Mono"
+set $sans_font "Lato"
 
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4

@@ -1,12 +1,13 @@
 Xcursor.theme: Adwaita
-Xcursor.size: 16
+!Xcursor.size: 48
 Xft.antialias: true
 Xft.hinting: true
 Xft.rgba: rgb
 Xft.autohint: false
 Xft.hintstyle: hintslight
 Xft.lcdfilter: lcddefault
-!Xft.dpi:96
+Xft.dpi:192
+rofi.dpi:192
 
 XTerm*faceName: Monospace
 XTerm*faceSize: 12

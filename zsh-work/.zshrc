@@ -2,7 +2,8 @@
 export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
-ZSH_THEME="aussiegeek"
+ZSH_THEME="spaceship"
+export SPACESHIP_DIR_TRUNC=0
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -12,19 +13,19 @@ ZSH_THEME="aussiegeek"
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+#ENABLE_CORRECTION="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-DISABLE_UNTRACKED_FILES_DIRTY="true"
+#DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Which plugins would you like to load?
 plugins=(git autojump fzf ansible aws)
 
 source $ZSH/oh-my-zsh.sh
 
-export PATH=$HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/bin:$HOME/.jenv/bin:/opt/atlassian-plugin-sdk/bin:$PATH
+export PATH=$HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/bin:$HOME/.jenv/bin:/opt/atlassian-plugin-sdk/bin:$HOME/todo:$PATH
 export EDITOR=vim
 
 # User configuration
@@ -39,17 +40,22 @@ export EDITOR=vim
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
+alias notify="noti --banner --time --message"
+alias notify-telegram="noti --banner --telegram --time --message"
 STASH="$HOME/atlassian/bitbucket/bitbucket-server/"
 alias bbs_es="docker run -it --rm -p 9200:9200 -p 7992:9300 -e "discovery.type=single-node" -e "xpack.security.enabled=false" docker.elastic.co/elasticsearch/elasticsearch:5.5.3"
 alias bbdir="cd $STASH"
 alias bbs_nuke_mirror_home="rm -rvf analytics-logs bin caches export lib log plugins tmp home.properties shared/config shared/data shared/plugins && mv shared/bitbucket.properties.bak shared/bitbucket.properties"
 alias bbs_nuke_home="rm -rvf analytics-logs bin caches export log plugins tmp home.properties shared/config shared/data shared/plugins shared/search"
-alias mii="mvn install -DskipTests -Dskip.unit.tests=true -Dincrementalbuild.enabled=true -Dincrementalbuild.metrics.disabled=true -T1.5C ; notify-send 'BbS built'"
-alias mci="mvn clean install -DskipTests -Dskip.unit.tests=true -T1.5C ; notify-send 'BbS built'"
+alias mii="notify 'Maven build done!' mvn install -DskipTests -Dskip.unit.tests=true -Dincrementalbuild.enabled=true -Dincrementalbuild.metrics.disabled=true -T2C"
+alias miii="mii -DskipNpmInstall"
+alias mci="notify 'Maven build done!' mvn clean && mii"
 alias rand_sentence="shuf -n $[$RANDOM % 10] /usr/share/dict/words | tr '\n' ' '"
 alias pshow="find ~/.password-store -type f | fzf | cut -f 5- -d /|sed 's/ /\\ /g'|sed 's/.gpg//g'| xargs -r pass show"
 alias cal="cal --color"
 alias ec="emacsclient --c"
+
+alias t="topydo"
 
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
         source /etc/profile.d/vte.sh
@@ -81,21 +87,69 @@ function git_create_branches {
 	done
 }
 
+function is_in_git_repo() {
+  git rev-parse HEAD > /dev/null 2>&1
+}
+
+function gf() {
+  is_in_git_repo &&
+    git -c color.status=always status --short |
+    fzf --height 40% -m --ansi --nth 2..,.. | awk '{print $2}'
+}
+
+function gb() {
+  is_in_git_repo &&
+    git branch -a -vv --color=always | grep -v '/HEAD\s' |
+    fzf --height 40% --ansi --multi --tac | sed 's/^..//' | awk '{print $1}' |
+    sed 's#^remotes/[^/]*/##'
+}
+
+function gt() {
+  is_in_git_repo &&
+    git tag --sort -version:refname |
+    fzf --height 40% --multi
+}
+
+function gh() {
+  is_in_git_repo &&
+    git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph |
+    fzf --height 40% --ansi --no-sort --reverse --multi | grep -o '[a-f0-9]\{7,\}'
+}
+
+function gr() {
+  is_in_git_repo &&
+    git remote -v | awk '{print $1 " " $2}' | uniq |
+    fzf --height 40% --tac | awk '{print $1}'
+}
+
+#bind '"\er": redraw-current-line'
+#bind '"\C-g\C-f": "$(gf)\e\C-e\er"'
+#bind '"\C-g\C-b": "$(gb)\e\C-e\er"'
+#bind '"\C-g\C-t": "$(gt)\e\C-e\er"'
+#bind '"\C-g\C-h": "$(gh)\e\C-e\er"'
+#bind '"\C-g\C-r": "$(gr)\e\C-e\er"'
+
 export VIMCONFIG=~/.vim
 export VIMDATA=~/.vim
 export VISUAL=nvim
+export DIRSTACKSIZE=10
 
 # Use nvim!
 alias vim=nvim
 alias vi=nvim
-alias cclip='xclip -selection clipboard'
+alias clip='xclip -selection clipboard'
 
 if [[ -f "${HOME}/.config/cloudtoken/bashrc_additions" ]]; then
     source "${HOME}/.config/cloudtoken/bashrc_additions"
 fi
 
-# Virtualenv - manage python package versions
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# Load pyenv into the shell by adding
+eval "$(pyenv init -)"
+
+# Load pyenv-virtualenv
+eval "$(pyenv virtualenv-init -)"
 
 
-[ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/csubraveti/.sdkman"
+[[ -s "/home/csubraveti/.sdkman/bin/sdkman-init.sh" ]] && source "/home/csubraveti/.sdkman/bin/sdkman-init.sh"
